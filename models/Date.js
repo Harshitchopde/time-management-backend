@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const datesSchema = mongoose.Schema({
-    name:{
-        type:String,
+const dateSchema = mongoose.Schema({
+    date:{
+        type:Date.now(), 
         required:true,
     },
     roll:{
@@ -11,4 +11,4 @@ const datesSchema = mongoose.Schema({
         
     }
 })
-export default mongoose.model("Date",datesSchema);
+export default mongoose.model("Date",dateSchema);
