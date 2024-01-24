@@ -22,9 +22,9 @@ const userSchema = mongoose.Schema({
     Dates:[
         {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Dates",
+        ref:"Date",
         }
     ]
  
-},{timestamp:true})
+},{timestamps:true})
 export default mongoose.model("User",userSchema);

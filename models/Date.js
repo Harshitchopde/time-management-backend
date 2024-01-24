@@ -2,13 +2,28 @@ import mongoose from "mongoose";
 
 const dateSchema = mongoose.Schema({
     date:{
-        type:Date.now(), 
+        type:Date, 
         required:true,
     },
-    roll:{
-        type:Number,
+    Schedule:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Schedule",
         required:true,
         
-    }
-})
+    },
+    Actual:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Actual",
+        required:true,
+        
+    },
+    OtherFactor:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"OtherFactor",
+       
+        
+    },
+  
+
+},{timestamps:true})
 export default mongoose.model("Date",dateSchema);
