@@ -94,6 +94,7 @@ export const login = async (req, res, next) => {
             })
         }
         const payload = {
+            id:checkUser._id,
             password,
             email
         }
@@ -124,3 +125,56 @@ export const login = async (req, res, next) => {
 }
 
 // log out -> future
+export const deleteUser =async (req,res,next)=>{
+    try {
+        const {email} = req.body;
+      
+        const result = await User.findOneAndDelete(email);
+
+        console.log(result);
+        res.status(200).send(
+           { status:200,
+            respose,
+            message:"User Deleted OKK"}
+        )
+        
+    
+    } catch (error) {
+        console.log(error);
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: error.message
+        }
+        )
+
+        
+    }
+}
+export const updateUser =async (req,res,next)=>{
+    try {
+        console.log("run 1");
+        
+        const {firstName,email} = req.body;
+        console.log(firstName ,email);
+        
+       const updateUser= await User.findOneAndUpdate({email},{$set:{firstName:firstName}},{new:true})
+    
+        res.status(200).send(
+           { status:200,
+            updateUser,
+            message:"User Updated OKK"}
+        )
+        
+    
+    } catch (error) {
+        console.log(error);
+    
+        res.status(400).json({
+            success: false,
+            message: error.message
+        }
+        )
+
+    }
+}

@@ -5,18 +5,18 @@ const dateSchema = mongoose.Schema({
         type:Date, 
         required:true,
     },
-    Schedule:{
+    Schedule:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Schedule",
-        required:true,
+        // required:true,
         
-    },
-    Actual:{
+    }],
+    Actual:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Actual",
-        required:true,
+        // required:true,
         
-    },
+    }],
     OtherFactor:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"OtherFactor",
@@ -26,4 +26,4 @@ const dateSchema = mongoose.Schema({
   
 
 },{timestamps:true})
-export default mongoose.model("Date",dateSchema);
+export default mongoose.model("Dates",dateSchema);

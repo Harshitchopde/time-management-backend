@@ -1,10 +1,18 @@
 import mongoose from "mongoose";
 
 const actualSchema = mongoose.Schema({
-   subSchedule:[{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"SubActual",
-    required:true,
-   }]
+   startTime:{
+      type:Date,
+      required:true,
+  },
+  endTime:{
+      type:Date,
+      required:true,
+  },
+  taskName:{
+      type:String,
+      required:true,
+      
+  }
 })
 export default mongoose.model("Actual",actualSchema);

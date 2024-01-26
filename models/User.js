@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
     Dates:[
         {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Date",
+        ref:"Dates",
         }
     ]
  
