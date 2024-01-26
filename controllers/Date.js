@@ -48,7 +48,7 @@ export const getDateDetails = async (req, res, next) => {
         const currentDateWithoutTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
        
          const findDate = await Dates.findOne({ date: currentDateWithoutTime }).populate("Schedule")
-                                                                                //.populate("Actual")
+                                                                                .populate("Actual")
         if (!findDate) {
             return res.status(400).json({
                 success: false,
