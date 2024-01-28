@@ -5,10 +5,10 @@ import jwt from 'jsonwebtoken';
 // sigin up 
 export const signUp = async (req, res, next) => {
     try {
-        const { firstName, lastName, password, email, confromPassword } = req.body;
+        const { firstName, password, email, confromPassword } = req.body;
 
         // checks all fields 
-        if (!firstName || !lastName || !password || !email || !confromPassword) {
+        if (!firstName|| !password || !email || !confromPassword) {
             return res.status(400).json({
                 success: false,
                 message: "All fields required"
@@ -35,7 +35,6 @@ export const signUp = async (req, res, next) => {
         // create entry
         const user = await User({
             firstName:firstName,
-            lastName:lastName,
             password: hashPassword,
             email,
         })
