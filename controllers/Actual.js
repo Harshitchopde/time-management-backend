@@ -26,7 +26,7 @@ export const createActual =async (req,res,next)=>{
         
      
     
-        res.status(200).send(
+        res.status(200).json(
            { status:200,
             actual,
             dates,
@@ -83,7 +83,7 @@ export const updateActual =async (req,res,next)=>{
       }
         // createActual
         const actual = await Actual.findByIdAndUpdate({_id:ActualId},{ $set:req.body},{new:true})
-        res.status(200).send(
+        res.status(200).json(
            { status:200,
             message:"Updated Actual",
             actual,}
@@ -114,7 +114,7 @@ export const deleteActual =async (req,res,next)=>{
                                         $pull:{Actual:ActualId}
                                       },{new:true})
         
-        res.status(200).send(
+        res.status(200).json(
            { status:200,
             message:"Deleted successfully Actual",   
             actual,

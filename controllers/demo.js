@@ -6,7 +6,7 @@ export const createStudent =async (req,res,next)=>{
         const respose = new  Demo({name,roll});
         const result = await respose.save();
         console.log(result);
-        res.status(200).send(
+        res.status(200).json(
            { status:200,
             respose,
             message:"Student created OKK"}

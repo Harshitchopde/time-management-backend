@@ -23,18 +23,18 @@ export const createDate = async (req, res, next) => {
         await User.findByIdAndUpdate(userId, {
                                  $push: { Dates: dateCreate._id },
                                  }, { new: true })
-        return res.status(200).send(
+        return res.status(200).json(
             {
                 status: 200,
+                message: `Date-${currentDateWithoutTime} created OKK`,
                 dateCreate,
-                message: `Date-${currentDateWithoutTime} created OKK`
             }
         )
 
 
     } catch (error) {
         console.log(error);
-        res.status(400).send(
+        res.status(400).json(
             {
                 success: false,
                 message: error.message,
@@ -42,6 +42,7 @@ export const createDate = async (req, res, next) => {
 
     }
 }
+
 export const getDateDetails = async (req, res, next) => {
     try {
         const currentDate = new Date();
@@ -55,7 +56,7 @@ export const getDateDetails = async (req, res, next) => {
                 message: "Date Not found!",
             })
         }
-        return res.status(200).send(
+        return res.status(200).json(
             {
                 success: true,
                 date:findDate,
@@ -66,7 +67,7 @@ export const getDateDetails = async (req, res, next) => {
 
     } catch (error) {
         console.log(error);
-        res.status(400).send(
+        res.status(400).json(
             {
                 success: false,
                 message: error.message,

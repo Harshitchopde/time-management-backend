@@ -8,7 +8,7 @@ export const signUp = async (req, res, next) => {
         const { firstName, password, email, confromPassword } = req.body;
 
         // checks all fields 
-        if (!firstName|| !password || !email || !confromPassword) {
+        if (!firstName || !password || !email || !confromPassword) {
             return res.status(400).json({
                 success: false,
                 message: "All fields required"
@@ -23,7 +23,7 @@ export const signUp = async (req, res, next) => {
             })
         }
         // match password
-        if (password !== confromPassword){
+        if (password !== confromPassword) {
             return res.status(400).json({
                 success: false,
                 message: "password not match"
@@ -34,7 +34,7 @@ export const signUp = async (req, res, next) => {
         const hashPassword = bcrypt.hashSync(password, salt);
         // create entry
         const user = await User({
-            firstName:firstName,
+            firstName: firstName,
             password: hashPassword,
             email,
         })
@@ -93,11 +93,12 @@ export const login = async (req, res, next) => {
             })
         }
         const payload = {
-            id:checkUser._id,
+            id: checkUser._id,
             password,
             email
         }
-        const token = jwt.sign(payload, process.env.JWT_SECRET);
+        const token = jwt.sign(payload, process.env.JWT_SECRETS);
+        console.log(token);
 
 
 
@@ -106,6 +107,7 @@ export const login = async (req, res, next) => {
         }).status(200).json(
             {
                 status: 200,
+                token,
                 message: "User successfully login",
 
             })
@@ -124,22 +126,24 @@ export const login = async (req, res, next) => {
 }
 
 // log out -> future
-export const deleteUser =async (req,res,next)=>{
+export const deleteUser = async (req, res, next) => {
     try {
-        const {email} = req.body;
-      
+        const { email } = req.body;
+
         const result = await User.findOneAndDelete(email);
 
         console.log(result);
-        res.status(200).send(
-           { status:200,
-            respose,
-            message:"User Deleted OKK"}
+        res.status(200).json(
+            {
+                status: 200,
+                respose,
+                message: "User Deleted OKK"
+            }
         )
-        
-    
+
+
     } catch (error) {
-        console.log(error);
+
         console.log(error);
         res.status(400).json({
             success: false,
@@ -147,28 +151,30 @@ export const deleteUser =async (req,res,next)=>{
         }
         )
 
-        
+
     }
 }
-export const updateUser =async (req,res,next)=>{
+export const updateUser = async (req, res, next) => {
     try {
         console.log("run 1");
-        
-        const {firstName,email} = req.body;
-        console.log(firstName ,email);
-        
-       const updateUser= await User.findOneAndUpdate({email},{$set:{firstName:firstName}},{new:true})
-    
-        res.status(200).send(
-           { status:200,
-            updateUser,
-            message:"User Updated OKK"}
+
+        const { firstName, email } = req.body;
+        console.log(firstName, email);
+
+        const updateUser = await User.findOneAndUpdate({ email }, { $set: { firstName: firstName } }, { new: true })
+
+        res.status(200).json(
+            {
+                status: 200,
+                updateUser,
+                message: "User Updated OKK"
+            }
         )
-        
-    
+
+
     } catch (error) {
         console.log(error);
-    
+
         res.status(400).json({
             success: false,
             message: error.message

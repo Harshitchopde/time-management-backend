@@ -25,7 +25,7 @@ export const createSchedule =async (req,res,next)=>{
         
      
     
-        res.status(200).send(
+        res.status(200).json(
            { status:200,
             schedule,
             dates,
@@ -76,7 +76,7 @@ export const updateSchedule =async (req,res,next)=>{
       
         // createSchedule
         const schedule = await Schedule.findByIdAndUpdate({_id:scheduleId},{ $set:req.body},{new:true})
-        res.status(200).send(
+        res.status(200).json(
            { status:200,
             message:"Updated Schedule",
             schedule,}
@@ -107,7 +107,7 @@ export const deleteSchedule =async (req,res,next)=>{
                                         $pull:{Schedule:scheduleId}
                                       },{new:true})
         
-        res.status(200).send(
+        res.status(200).json(
            { status:200,
             message:"Deleted successfully Schedule",   
             schedule,

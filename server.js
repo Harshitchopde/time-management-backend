@@ -6,9 +6,11 @@ import datesRoutes from "./routes/datesRoutes.js"
 import scheduleRoutes from "./routes/scheduleRoutes.js"
 import actualRoutes from "./routes/actualRoutes.js"
 import cookieParser from "cookie-parser";
+import cors from "cors"
 const app = express();
 
 app.use(cookieParser())
+app.use(cors())
 app.use(express.json())// parser to use json
 const PORT = process.env.PORT || 4000
 
