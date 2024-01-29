@@ -5,6 +5,10 @@ const dateSchema = mongoose.Schema({
         type:Date, 
         required:true,
     },
+    userId:{
+        type:String,
+        required:true,
+    },
     Schedule:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Schedule",

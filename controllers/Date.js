@@ -10,14 +10,14 @@ export const createDate = async (req, res, next) => {
         const currentDate = new Date();
         const currentDateWithoutTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
         console.log(currentDateWithoutTime);
-         const findDate = await Dates.findOne({ date: currentDateWithoutTime });
+         const findDate = await Dates.findOne({ date: currentDateWithoutTime ,userId:userId});
         if (findDate) {
             return res.status(400).json({
                 success: false,
                 message: "Date already created",
             })
         }
-        const dateCreate = await Dates.create({ date: currentDateWithoutTime });
+        const dateCreate = await Dates.create({ date: currentDateWithoutTime ,userId});
         console.log(dateCreate);
         // add this date to the user
         await User.findByIdAndUpdate(userId, {
@@ -46,9 +46,10 @@ export const createDate = async (req, res, next) => {
 export const getDateDetails = async (req, res, next) => {
     try {
         const currentDate = new Date();
+        const userId = req.user.id;
         const currentDateWithoutTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
        
-         const findDate = await Dates.findOne({ date: currentDateWithoutTime }).populate("Schedule")
+         const findDate = await Dates.findOne({ date: currentDateWithoutTime,userId }).populate("Schedule")
                                                                                 .populate("Actual").exec();
         if (!findDate) {
             return res.status(400).json({

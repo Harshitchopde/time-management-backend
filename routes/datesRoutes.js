@@ -11,7 +11,7 @@ const router = express.Router();
 // Create date
 router.post("/createDate",verifyToken, createDate)
 // GEt details 
-router.get("/getDateDetails",getDateDetails)
+router.get("/getDateDetails",verifyToken,getDateDetails)
 // Update date
 // router.post("/updateDate",)
 

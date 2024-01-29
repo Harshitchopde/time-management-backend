@@ -8,7 +8,7 @@ export const verifyToken = (req, res, next) => {
     
     console.log("verify run ")
     try {
-        // console.log(token);
+        console.log(token);
         
 
         if (!token) {
