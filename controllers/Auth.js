@@ -73,7 +73,9 @@ export const login = async (req, res, next) => {
         if (!password || !email) {
             return res.status(400).json({
                 success: false,
-                message: "All fields required"
+                message: "All fields required",
+                password,
+                email
             })
         }
         // check user already exist 

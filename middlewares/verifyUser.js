@@ -32,6 +32,8 @@ export const verifyToken = (req, res, next) => {
                 )
             }
             req.user = user // i don under stand this line why used
+            console.log(user);
+            
             console.log("verifyed");
             next()
 
