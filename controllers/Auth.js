@@ -68,7 +68,10 @@ export const signUp = async (req, res, next) => {
 export const login = async (req, res, next) => {
     try {
         const { password, email } = req.body;
-
+        console.log(req.body);
+        console.log("REQ : "+req);
+        
+        
         // checks all fields 
         if (!password || !email) {
             return res.status(400).json({
