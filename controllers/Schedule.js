@@ -15,10 +15,15 @@ export const createSchedule =async (req,res,next)=>{
         }
         // createSchedule
         const schedule = await Schedule.create({startTime,endTime,taskName});
-        // store its id in date   const currentDate = new Date();
         const currentDate = new Date();
-        const currentDateWithoutTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-        const dates = await Dates.findOneAndUpdate({date:currentDateWithoutTime},
+           // Extract year, month, and day components
+           const year = currentDate.getFullYear();
+           const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+           const day = currentDate.getDate().toString().padStart(2, '0');
+           
+           // Create the formatted date string
+           const formattedDate = `${year}-${month}-${day}`;
+        const dates = await Dates.findOneAndUpdate({date:formattedDate},
                                       {
                                         $push:{Schedule:schedule._id}
                                       },{new:true})
@@ -69,6 +74,46 @@ export const getSingleSchedule = async(req,res,next)=>{
         })
     }
 }
+export const getParticularSchedule = async (req, res, next) => {
+    try {
+        const currentDate = new Date();
+
+        // Extract year, month, and day components
+        const year = currentDate.getFullYear();
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+        const day = currentDate.getDate().toString().padStart(2, '0');
+        
+        // Create the formatted date stringmm
+        const formattedDate = `${year}-${month}-${day}`;
+       
+         const findDate = await Dates.findOne({ date: formattedDate,userId }).populate("Schedule")
+                                                                                .populate("Actual").exec();
+        if (!findDate) {
+            return res.status(400).json({
+                success: false,
+                message: "Date Not found!",
+            })
+        }
+        return res.status(200).json(
+            {
+                success: true,
+                date:findDate,
+                message: `Date-${currentDateWithoutTime} created OKK`
+            }
+        )
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(
+            {
+                success: false,
+                message: error.message,
+            })
+
+    }
+}
+
 export const updateSchedule =async (req,res,next)=>{
     try {
        const scheduleId = req.params.scheduleId;

@@ -9,4 +9,5 @@ router.post("/createSchedule",verifyToken,createSchedule);
 router.get("/:scheduleId",getSingleSchedule);
 router.put("/:scheduleId",verifyToken,updateSchedule);
 router.delete("/:scheduleId",verifyToken,deleteSchedule);
+
 export default router;
