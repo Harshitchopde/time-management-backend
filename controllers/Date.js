@@ -8,7 +8,8 @@ export const createDate = async (req, res, next) => {
         
         console.log("run");
         const userId = req.user.id;
-        const date = req.body.date;
+        const dateString = req.body.date;
+        const date =new Date(dateString);
         const findDate = await Dates.findOne({ date: date ,userId:userId});
         if (findDate) {
             return res.status(400).json({
@@ -46,7 +47,9 @@ export const getDateDetails = async (req, res, next) => {
     try {
        
         const userId = req.user.id;
-        const date = req.body.date;
+        const dateString = req.body.date;
+        const date = new Date(dateString);
+
          const findDate = await Dates.findOne({ date: date,userId }).populate("Schedule")
                                                                                 .populate("Actual").exec();
         if (!findDate) {
