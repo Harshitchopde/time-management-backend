@@ -48,18 +48,21 @@ export const createActual =async (req,res,next)=>{
 }
 export const getSingleActual = async(req,res,next)=>{
     try {
-        const ActualId = req.params.ActualId;
-        if(!ActualId){
+        const date = req.query.date;
+        const userId = req.user.id;
+        console.log(date);
+        
+        if(!date){
             return res.status(400).json({
                 success:false,
-                message:"ActualId is empty"
+                message:"date is empty"
             })
         }
-        const actual = await Actual.findById(ActualId);
-        return res.status(200).json({
+        const dataDate = await Dates.findOne({date,userId}).populate("Actual").exec();
+                return res.status(200).json({
             success:true,
             message:"Get successfully",
-            actual,
+            Actual:dataDate.Actual,
         })
     } catch (error) {
         console.log(error);

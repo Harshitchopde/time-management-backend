@@ -6,8 +6,8 @@ import { verifyToken } from "../middlewares/verifyUser.js";
 const router = express.Router();
 
 router.post("/createSchedule",verifyToken,createSchedule);
-router.get("/:scheduleId",getSingleSchedule);
-router.get("/")
+router.get("/find",verifyToken,getSingleSchedule);
+
 router.put("/:scheduleId",verifyToken,updateSchedule);
 router.delete("/:scheduleId",verifyToken,deleteSchedule);
 

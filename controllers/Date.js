@@ -8,11 +8,19 @@ export const createDate = async (req, res, next) => {
         
         console.log("run");
         const userId = req.user.id;
+        console.log(req.body);
+        
+      
         const dateString = req.body.date;
+        console.log(dateString);
         const date =new Date(dateString);
+        console.log("convert hogye: ",date);
+        
+       
+        
         const findDate = await Dates.findOne({ date: date ,userId:userId});
         if (findDate) {
-            return res.status(400).json({
+            return res.status(200).json({
                 success: false,
                 message: "Date already created",
             })
@@ -33,7 +41,7 @@ export const createDate = async (req, res, next) => {
 
 
     } catch (error) {
-        console.log(error);
+        console.log("CreateDate error : ",error);
         res.status(400).json(
             {
                 success: false,
@@ -47,8 +55,11 @@ export const getDateDetails = async (req, res, next) => {
     try {
        
         const userId = req.user.id;
-        const dateString = req.body.date;
+        const dateString = req.query.date;
+        console.log(dateString);
+        
         const date = new Date(dateString);
+console.log("DATE : ",date);
 
          const findDate = await Dates.findOne({ date: date,userId }).populate("Schedule")
                                                                                 .populate("Actual").exec();
@@ -62,7 +73,7 @@ export const getDateDetails = async (req, res, next) => {
             {
                 success: true,
                 date:findDate,
-                message: `Date-${date} created OKK`
+                message: `Le aaye Date-${date} `
             }
         )
 

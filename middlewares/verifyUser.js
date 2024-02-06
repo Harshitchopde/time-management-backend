@@ -1,12 +1,16 @@
 import jwt from "jsonwebtoken";
 export const verifyToken = (req, res, next) => {
+    console.log("veriging token start");
+    
     const token = req.cookies.access_token;
     // access_token
     
     
 
-  
+    
     try {
+        console.log("Dhek bhai");
+        
         console.log(token);
         
 
@@ -19,7 +23,8 @@ export const verifyToken = (req, res, next) => {
                 }
             )
         }
-
+        console.log("hee");
+        
         jwt.verify(token, process.env.JWT_SECRETS, (err, user) => {
             if (err) {
                 return res.status(400).json(
@@ -30,7 +35,7 @@ export const verifyToken = (req, res, next) => {
                     }
                 )
             }
-            req.user = user // i don under stand this line why used
+            req.user = user 
             // console.log(user);
             
            
@@ -40,7 +45,29 @@ export const verifyToken = (req, res, next) => {
 
 
     } catch (error) {
-        console.log(error)
+        console.log("VerifyUser"+error)
         next(error)
     }
 };
+export const verifyAuth = (req,res)=>{
+    try {
+        const userId = req.user.id;
+        if(!userId){
+            return res.status(400).json({
+                success:false,
+                message:"User is not present"
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            message:"User is authernticated"
+        })
+        
+    } catch (error) {
+        console.log("verifyAuth"+error)
+       return res.status(400).json({
+        success:false,
+        message:error.message,
+       })
+    }
+}

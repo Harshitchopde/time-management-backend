@@ -6,7 +6,7 @@ import { verifyToken } from "../middlewares/verifyUser.js";
 const router = express.Router();
 
 router.post("/createActual",verifyToken,createActual);
-router.get("/:ActualId",getSingleActual);
+router.get("/find",verifyToken,getSingleActual);
 router.put("/:ActualId",verifyToken,updateActual);
 router.delete("/:ActualId",verifyToken,deleteActual);
 export default router;
