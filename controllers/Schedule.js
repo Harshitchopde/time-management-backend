@@ -23,6 +23,7 @@ currentTime.setHours(hours,minutes,0,0);
 export const createSchedule =async (req,res,next)=>{
     try {
         // get the parameter form body
+        const userId = req.user.id;
         const {startTime,endTime,taskName,date} = req.body;
 
         // check is not empty
@@ -47,7 +48,7 @@ export const createSchedule =async (req,res,next)=>{
            
            // Create the formatted date string
            
-        const dates = await Dates.findOneAndUpdate({date:date},
+        const dates = await Dates.findOneAndUpdate({date:date,userId},
                                       {
                                         $push:{Schedule:schedule._id}
                                       },{new:true})
