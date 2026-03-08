@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 const app = express();
 
-// random
+// random second
 app.use(cookieParser())
 app.use(cors())
 app.use(express.json())// parser to use json
@@ -32,3 +32,4 @@ app.listen(PORT, () => {
 
 
 })
+
