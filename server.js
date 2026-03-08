@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 const app = express();
 
+// random
 app.use(cookieParser())
 app.use(cors())
 app.use(express.json())// parser to use json
@@ -28,5 +29,6 @@ app.use('/',(req,res)=>{
 app.listen(PORT, () => {
     Connect()
     console.log(`Connected to server -> http:localhost:${PORT}/`);
+
 
 })
